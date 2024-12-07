@@ -18,4 +18,10 @@ export class UsersController {
     const userCreated = await this.usersService.createUser(userDTO)
     return response.status(201).json(userCreated)
   }
+
+  @Post()
+  async addItemToUser(@Res() response: Response, @Body() userId: string, @Body() itemId: string) {
+    const user = await this.usersService.addItemToUser(userId, itemId)
+    return response.status(201).json(user)
+  }
 }

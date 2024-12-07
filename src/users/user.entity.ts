@@ -14,7 +14,7 @@ import { Items } from "../items/items.entity"
 @Entity({ name: "users" })
 export class Users {
   @PrimaryGeneratedColumn("uuid")
-  id: number
+  id: string
 
   @Column({ name: "name", nullable: false })
   name: string
