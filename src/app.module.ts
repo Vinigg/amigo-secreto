@@ -3,6 +3,7 @@ import { ConfigModule } from "@nestjs/config"
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { UsersModule } from "./users/users.module"
 import { ItemsModule } from "./items/items.module"
+import { GroupsModule } from "./groups/groups.module"
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { ItemsModule } from "./items/items.module"
       entities: [__dirname + "/**/*.entity{.ts,.js}"]
     }),
     UsersModule,
-    ItemsModule
+    ItemsModule,
+    GroupsModule
   ],
   controllers: [],
   providers: []
