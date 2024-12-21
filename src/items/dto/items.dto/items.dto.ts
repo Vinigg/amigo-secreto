@@ -1,5 +1,5 @@
 export class ItemsDto {
-  readonly id?: number
+  readonly id?: string
   readonly name: string
   readonly url: string
   readonly createdAt: Date

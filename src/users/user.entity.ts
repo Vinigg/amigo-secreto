@@ -3,13 +3,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm"
 import { Items } from "../items/items.entity"
+import { UsersItems } from "src/usersItems/userItems.entity"
+import { GroupMembers } from "src/groupMembers/groupMembers.entity"
 
 @Entity({ name: "users" })
 export class Users {
@@ -25,9 +25,11 @@ export class Users {
   @Column({ name: "password", nullable: false })
   password: string
 
-  @ManyToMany(() => Items)
-  @JoinTable({ name: "user_items", joinColumn: { name: "user_id" }, inverseJoinColumn: { name: "item_id" } })
-  items: Items[]
+  @OneToMany(() => UsersItems, (usersItems) => usersItems.user)
+  usersItems: UsersItems[]
+
+  @OneToMany(() => GroupMembers, (groupMembers) => groupMembers.user)
+  groupMembers: GroupMembers[]
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date

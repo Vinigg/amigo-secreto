@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Res } from "@nestjs/common"
+import { Body, Controller, Get, Param, Post, Res } from "@nestjs/common"
 import { Response } from "express"
 import { UsersService } from "./users.service"
 import { UsersDto } from "./dto/users.dto.ts/users.dto"
@@ -19,9 +19,13 @@ export class UsersController {
     return response.status(201).json(userCreated)
   }
 
-  @Post()
-  async addItemToUser(@Res() response: Response, @Body() userId: string, @Body() itemId: string) {
-    const user = await this.usersService.addItemToUser(userId, itemId)
-    return response.status(201).json(user)
+  @Post("assign-item")
+  async assignItem(@Body("userId") userId: string, @Body("itemId") itemId: string) {
+    return this.usersService.assignItemToUser(userId, itemId)
+  }
+
+  @Get("/items")
+  async getUserItems(@Body("userId") userId: string) {
+    return this.usersService.getUserItems(userId)
   }
 }

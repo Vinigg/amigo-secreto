@@ -1,21 +1,17 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
-@Entity()
-export class UserItems {
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, JoinColumn } from "typeorm"
+import { Users } from "../users/user.entity"
+import { Items } from "../items/items.entity"
+
+@Entity("user_items")
+export class UsersItems {
   @PrimaryGeneratedColumn("uuid")
-  id: number
+  id: string
 
-  @Column({ name: "user_id", nullable: false })
-  userId: string
+  @ManyToOne(() => Users, (user) => user.usersItems)
+  @JoinColumn({ name: "user_id" })
+  user: Users
 
-  @Column({ name: "item_id", nullable: false })
-  itemId: string
-
-  @CreateDateColumn({ name: "created_at" })
-  createdAt: Date
-
-  @UpdateDateColumn({ name: "updated_at" })
-  updatedAt: Date
-
-  @DeleteDateColumn({ name: "deleted_at", nullable: true })
-  deletedAt: Date
+  @ManyToOne(() => Items, (item) => item.usersItems)
+  @JoinColumn({ name: "item_id" })
+  item: Items
 }
