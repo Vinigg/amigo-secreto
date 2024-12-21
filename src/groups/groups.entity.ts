@@ -1,3 +1,4 @@
+import { Draws } from "src/draws/draws.entity"
 import { GroupMembers } from "src/groupMembers/groupMembers.entity"
 import {
   Entity,
@@ -22,6 +23,9 @@ export class Groups {
 
   @OneToMany(() => GroupMembers, (groupMembers) => groupMembers.group)
   groupMembers: GroupMembers[]
+
+  @OneToMany(() => Draws, (draw) => draw.group)
+  draws: Draws[]
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date

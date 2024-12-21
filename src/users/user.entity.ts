@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from "typeorm"
-import { Items } from "../items/items.entity"
+import { Draws } from "src/draws/draws.entity"
 import { UsersItems } from "src/usersItems/userItems.entity"
 import { GroupMembers } from "src/groupMembers/groupMembers.entity"
 
@@ -30,6 +30,12 @@ export class Users {
 
   @OneToMany(() => GroupMembers, (groupMembers) => groupMembers.user)
   groupMembers: GroupMembers[]
+
+  @OneToMany(() => Draws, (draw) => draw.giver)
+  givenDraws: Draws[]
+
+  @OneToMany(() => Draws, (draw) => draw.receiver)
+  receivedDraws: Draws[]
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date
