@@ -1,13 +1,13 @@
 import { Draws } from "src/draws/draws.entity"
-import { GroupMembers } from "src/groupMembers/groupMembers.entity"
+import { Users } from "src/users/user.entity"
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  UpdateDateColumn,
   DeleteDateColumn,
-  OneToMany
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from "typeorm"
 
 @Entity("groups")
@@ -21,8 +21,8 @@ export class Groups {
   @Column({ name: "description", nullable: true })
   description: string
 
-  @OneToMany(() => GroupMembers, (groupMembers) => groupMembers.group)
-  groupMembers: GroupMembers[]
+  @OneToMany(() => Users, (users) => users.group)
+  users: Users[]
 
   @OneToMany(() => Draws, (draw) => draw.group)
   draws: Draws[]

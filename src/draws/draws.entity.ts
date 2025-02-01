@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm"
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm"
 import { Groups } from "../groups/groups.entity"
 import { Users } from "../users/user.entity"
 
@@ -7,15 +7,21 @@ export class Draws {
   @PrimaryGeneratedColumn()
   id: number
 
-  @ManyToOne(() => Groups, (group) => group.draws, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "group_id" })
+  @ManyToOne(() => Groups, (group) => group.draws)
   group: Groups
 
-  @ManyToOne(() => Users, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "giver_id" })
+  @ManyToOne(() => Users)
   giver: Users
 
-  @ManyToOne(() => Users, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "receiver_id" })
+  @ManyToOne(() => Users)
   receiver: Users
+
+  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  created_at: Date
+
+  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP", onUpdate: "CURRENT_TIMESTAMP" })
+  updated_at: Date
+
+  @Column({ type: "timestamp", nullable: true })
+  deleted_at: Date
 }

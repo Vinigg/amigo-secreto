@@ -1,37 +1,53 @@
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
+import { Groups } from "src/groups/groups.entity"
+import { Users } from "src/users/user.entity"
 import { Repository } from "typeorm"
 import { Draws } from "./draws.entity"
-import { Users } from "../users/user.entity"
-import { Groups } from "../groups/groups.entity"
 
 @Injectable()
 export class DrawsService {
   constructor(
-    @InjectRepository(Draws) private drawRepository: Repository<Draws>,
-    @InjectRepository(Users) private userRepository: Repository<Users>,
-    @InjectRepository(Groups) private groupRepository: Repository<Groups>
+    @InjectRepository(Groups)
+    private readonly groupsRepository: Repository<Groups>,
+    @InjectRepository(Users)
+    private readonly usersRepository: Repository<Users>,
+    @InjectRepository(Draws)
+    private readonly drawRepository: Repository<Draws>
   ) {}
 
-  // Criar um sorteio
-  async createDraw(groupId: string, giverId: string, receiverId: string): Promise<Draws> {
-    const group = await this.groupRepository.findOne({ where: { id: groupId } })
-    const giver = await this.userRepository.findOne({ where: { id: giverId } })
-    const receiver = await this.userRepository.findOne({ where: { id: receiverId } })
-
-    if (!group) throw new Error("Group not found")
-    if (!giver) throw new Error("Giver not found")
-    if (!receiver) throw new Error("Receiver not found")
-
-    const draw = this.drawRepository.create({ group, giver, receiver })
-    return this.drawRepository.save(draw)
-  }
-
-  // Buscar sorteios por grupo
-  async getDrawsByGroup(groupId: string): Promise<Draws[]> {
-    return this.drawRepository.find({
-      where: { group: { id: groupId } },
-      relations: ["giver", "receiver", "group"]
+  async performDraw(groupId: string): Promise<void> {
+    // Find the group and its users
+    const group = await this.groupsRepository.findOne({
+      where: { id: groupId },
+      relations: ["users"]
     })
+
+    if (!group) {
+      throw new Error("Group not found")
+    }
+
+    const users = group.users
+
+    if (users.length < 2) {
+      throw new Error("Not enough users to perform a draw")
+    }
+
+    // Shuffle users
+    const shuffledUsers = [...users].sort(() => Math.random() - 0.5)
+
+    // Create draws and save them to the database
+    for (let i = 0; i < shuffledUsers.length; i++) {
+      const giver = shuffledUsers[i]
+      const receiver = shuffledUsers[(i + 1) % shuffledUsers.length]
+
+      const draw = this.drawRepository.create({
+        group,
+        giver,
+        receiver
+      })
+
+      await this.drawRepository.save(draw)
+    }
   }
 }

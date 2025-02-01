@@ -1,14 +1,13 @@
 import { Module } from "@nestjs/common"
 import { TypeOrmModule } from "@nestjs/typeorm"
-import { GroupsController } from "./groups.controller"
-import { GroupsService } from "./groups.service"
-import { Groups } from "./groups.entity"
 import { Users } from "../users/user.entity"
-import { GroupMembers } from "../groupMembers/groupMembers.entity"
+import { GroupsController } from "./groups.controller"
+import { Groups } from "./groups.entity"
+import { GroupsService } from "./groups.service"
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Groups, Users, GroupMembers]) // Registra as entidades necessárias
+    TypeOrmModule.forFeature([Groups, Users]) // Registra as entidades necessárias
   ],
   controllers: [GroupsController],
   providers: [GroupsService], // Declara o serviço como provider

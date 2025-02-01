@@ -34,7 +34,10 @@ $ npm run test:cov
 
 ```bash
 # create migration
-$ npm run typeorm migration:create ./src/migrations/CreateGroupsTable
+> npm run typeorm migration:create ./src/migrations/CreateGroupsTable
+
+# revert migration
+> npm run typeorm migration:revert --dataSource ./src/data-source.ts
 
 
 ```
