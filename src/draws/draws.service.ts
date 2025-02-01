@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common"
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Groups } from "src/groups/groups.entity"
 import { Users } from "src/users/user.entity"
@@ -17,37 +17,49 @@ export class DrawsService {
   ) {}
 
   async performDraw(groupId: string): Promise<void> {
-    // Find the group and its users
+    // Fetch the group and its users
     const group = await this.groupsRepository.findOne({
       where: { id: groupId },
-      relations: ["users"]
+      relations: ["users"] // Load the users associated with the group
     })
 
     if (!group) {
-      throw new Error("Group not found")
+      throw new HttpException("Group not found", HttpStatus.NOT_FOUND)
     }
 
     const users = group.users
 
+    // Ensure there are enough users to perform a draw
     if (users.length < 2) {
-      throw new Error("Not enough users to perform a draw")
+      throw new HttpException("Not enough users to perform a draw", HttpStatus.BAD_REQUEST)
     }
 
-    // Shuffle users
-    const shuffledUsers = [...users].sort(() => Math.random() - 0.5)
+    // Shuffle the users array
+    const shuffledUsers = this.shuffleArray([...users])
 
     // Create draws and save them to the database
     for (let i = 0; i < shuffledUsers.length; i++) {
       const giver = shuffledUsers[i]
-      const receiver = shuffledUsers[(i + 1) % shuffledUsers.length]
+      const receiver = shuffledUsers[(i + 1) % shuffledUsers.length] // Assign the next user in the list
 
+      // Create a new Draw entity
       const draw = this.drawRepository.create({
         group,
         giver,
         receiver
       })
 
+      // Save the draw to the database
       await this.drawRepository.save(draw)
     }
+  }
+
+  // Helper function to shuffle an array
+  private shuffleArray(array: any[]): any[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[array[i], array[j]] = [array[j], array[i]]
+    }
+    return array
   }
 }
