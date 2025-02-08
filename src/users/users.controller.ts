@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post, Res } from "@nestjs/common"
 import { Response } from "express"
 import { AddItemOnUserDTO } from "./dto/add-item-on-user.dto"
-import { SendEmailDTO } from "./dto/send-email.dto"
 import { UsersDto } from "./dto/users.dto"
 import { UsersService } from "./users.service"
 
@@ -29,10 +28,5 @@ export class UsersController {
   @Get("/items/:userId")
   async getUserItems(@Param("userId") userId: string) {
     return this.usersService.getUserItems(userId)
-  }
-
-  @Post("send-email/")
-  async sendUserEmail(@Body() input: SendEmailDTO) {
-    return this.usersService.sendUserEmail(input.userId)
   }
 }

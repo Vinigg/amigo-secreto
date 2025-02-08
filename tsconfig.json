@@ -22,5 +22,7 @@
       "@crons/*": ["./src/crons/*"],
       "@utils/*": ["./src/utils/*"]
     }
-  }
+  },
+  "exclude": ["node_modules"],
+  "include": ["./src/**/*.tsx", "./src/**/*.ts", "src/**/*.html"]
 }

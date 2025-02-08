@@ -1,17 +1,17 @@
-import fs from "fs"
+import * as fs from "fs"
 import Handlebars from "handlebars"
-import path from "path"
+import * as path from "path"
 
 const drawResultTemplate = (receiverName: string, giverName: string) => {
   // Load the HTML template
 
-  const templatePath = path.join(__dirname, "drawResult.html")
+  const templatePath = path.resolve("src/utils/emailsTemplates/drawResult.html")
   const templateSource = fs.readFileSync(templatePath, "utf8")
   var template = Handlebars.compile(templateSource)
 
   return template({
-    RECEIVER_NAME: receiverName,
-    GIVER_NAME: giverName,
+    receiverName,
+    giverName,
     CORS_ORIGIN: process.env.CORS_ORIGIN
   })
 }

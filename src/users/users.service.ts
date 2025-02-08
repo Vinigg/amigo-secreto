@@ -1,5 +1,3 @@
-import drawResultTemplate from "@/utils/emailsTemplates/drawResult"
-import { sendEmail } from "@/utils/sendEmail"
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Items } from "src/items/items.entity"
@@ -15,22 +13,7 @@ export class UsersService {
     @InjectRepository(Items) private itemsRepository: Repository<Items>,
     @InjectRepository(UsersItems) private usersItemsRepository: Repository<UsersItems>
   ) {}
-  async sendUserEmail(userId: string): Promise<void> {
-    // Fetch the user
-    const user = await this.usersRepository.findOne({ where: { id: userId } })
 
-    if (!user) {
-      throw new Error("User not found")
-    }
-
-    // Send an email to the user
-    console.log(`Sending email to ${user.email}`)
-    try {
-      await sendEmail(user.email, "Amigo Secreto - Resultado do sorteio", drawResultTemplate("teste", "teste"))
-    } catch (error) {
-      console.log(error)
-    }
-  }
   async findAllUsers(): Promise<Users[]> {
     const users = await this.usersRepository.find()
     return users

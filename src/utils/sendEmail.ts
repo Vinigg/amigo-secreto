@@ -1,11 +1,14 @@
-import nodemailer from "nodemailer"
+import { __prod__ } from "@/constants"
+import "dotenv-safe/config"
+import * as nodemailer from "nodemailer"
 import SMTPTransport from "nodemailer/lib/smtp-transport"
 
 export async function sendEmail(to: string, subject: string, html: string) {
   const transport = {
     host: process.env.EMAIL_HOST,
     port: Number(process.env.EMAIL_PORT),
-    secure: Number(process.env.EMAIL_PORT) == 587, // true for 587, false for other ports
+    secure: Number(process.env.EMAIL_PORT) == 465, // true for 465, false for other ports,
+    debug: !__prod__,
     auth: {
       user: process.env.EMAIL_SENDER,
       pass: process.env.EMAIL_PASSWORD
