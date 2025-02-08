@@ -1,3 +1,4 @@
+
 # Amigo Secreto
 
 ## Descrição do Projeto
@@ -38,6 +39,19 @@ Para instalar o projeto, siga os seguintes passos:
 
     - O projeto foi construído para utilizar um banco de dados PostgreSQL. Caso deseje utilizar outro banco de dados, você precisará alterar o arquivo `data-source.ts`, no parâmetro `type`, preenchendo com o tipo de banco desejado (ex: `mysql`, `sqlite`, etc.).
 
+## Utilizando o ethereal.email:
+
+### O projeto utiliza o Ethereal para testar o envio de emails
+
+   - Crie uma conta em https://ethereal.email/. No botão 'Create Ethereal Account
+   - Preencha o .env com as credenciais de acesso fornecidas.
+
+    EMAIL_HOST=smtp.ethereal.email
+    EMAIL_PORT=587
+    EMAIL_SENDER=YOURACOUNT@ethereal.email
+    EMAIL_PASSWORD=YOURPASSWORD
+    CORS_ORIGIN=http://localhost:3000
+
 ## Uso
 
 Para executar o projeto, siga os seguintes passos:
@@ -73,19 +87,6 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
 ## TypeORM CLI
