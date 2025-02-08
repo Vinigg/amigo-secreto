@@ -52,9 +52,6 @@ Para executar o projeto, siga os seguintes passos:
 
     - Acesse a URL `http://localhost:3000/api#/` no seu navegador. Essa rota foi construída utilizando o Swagger, que permite visualizar e testar as requisições da API de forma interativa.
 
-## Licença
-
-Este projeto está sob a licença [MIT](LICENSE).
 
 ## Project setup
 
