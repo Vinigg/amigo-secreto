@@ -1,3 +1,5 @@
+import drawResultTemplate from "@/utils/emailsTemplates/drawResult"
+import { sendEmail } from "@/utils/sendEmail"
 import { HttpException, HttpStatus, Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Groups } from "src/groups/groups.entity"
@@ -48,6 +50,14 @@ export class DrawsService {
         giver,
         receiver
       })
+
+      // Send an email to the giver with the draw result
+      console.log(`Sending email to ${giver.email}`)
+      await sendEmail(
+        giver.email,
+        "Amigo Secreto - Resultado do sorteio",
+        drawResultTemplate(receiver.name, giver.name)
+      )
 
       // Save the draw to the database
       await this.drawRepository.save(draw)

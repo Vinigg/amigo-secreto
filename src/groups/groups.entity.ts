@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -21,11 +22,14 @@ export class Groups {
   @Column({ name: "description", nullable: true })
   description: string
 
-  @OneToMany(() => Users, (users) => users.group)
+  @ManyToMany(() => Users, (users) => users.group)
   users: Users[]
 
   @OneToMany(() => Draws, (draw) => draw.group)
   draws: Draws[]
+
+  @Column({ name: "draw_day", type: "timestamp", default: "CURRENT_TIMESTAMP" })
+  drawDay: Date
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date

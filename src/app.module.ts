@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common"
 import { ConfigModule } from "@nestjs/config"
 import { TypeOrmModule } from "@nestjs/typeorm"
 import { AppDataSource } from "./data-source" // Import the data source
+import { DrawsModule } from "./draws/draws.module"
 import { GroupsModule } from "./groups/groups.module"
 import { ItemsModule } from "./items/items.module"
 import { UsersModule } from "./users/users.module"
@@ -13,7 +14,8 @@ import { UsersModule } from "./users/users.module"
     TypeOrmModule.forRoot(AppDataSource.options),
     UsersModule,
     ItemsModule,
-    GroupsModule
+    GroupsModule,
+    DrawsModule
   ],
   controllers: [],
   providers: []

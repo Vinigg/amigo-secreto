@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Res } from "@nestjs/common"
 import { Response } from "express"
+import { ItemsDto } from "./dto/items.dto"
 import { ItemsService } from "./items.service"
-import { ItemsDto } from "./dto/items.dto/items.dto"
 
 @Controller("items")
 export class ItemsController {

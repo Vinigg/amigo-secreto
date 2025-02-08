@@ -4,5 +4,8 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": true
+  },
+  "environment": {
+    "NODE_ENV": "development" 
   }
 }

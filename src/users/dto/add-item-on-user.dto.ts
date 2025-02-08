@@ -1,14 +1,14 @@
 import { ApiProperty } from "@nestjs/swagger"
 import { IsNotEmpty, IsString } from "class-validator"
 
-export class GroupsDto {
+export class AddItemOnUserDTO {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  readonly name: string
+  readonly userId: string
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  readonly description: string
+  readonly itemId: string
 }

@@ -1,7 +1,9 @@
 import { Body, Controller, Get, Param, Post, Res } from "@nestjs/common"
 import { Response } from "express"
+import { AddItemOnUserDTO } from "./dto/add-item-on-user.dto"
+import { SendEmailDTO } from "./dto/send-email.dto"
+import { UsersDto } from "./dto/users.dto"
 import { UsersService } from "./users.service"
-import { UsersDto } from "./dto/users.dto.ts/users.dto"
 
 @Controller("users")
 export class UsersController {
@@ -20,12 +22,17 @@ export class UsersController {
   }
 
   @Post("assign-item")
-  async assignItem(@Body("userId") userId: string, @Body("itemId") itemId: string) {
-    return this.usersService.assignItemToUser(userId, itemId)
+  async assignItem(@Body() input: AddItemOnUserDTO) {
+    return this.usersService.assignItemToUser(input.userId, input.itemId)
   }
 
-  @Get("/items")
-  async getUserItems(@Body("userId") userId: string) {
+  @Get("/items/:userId")
+  async getUserItems(@Param("userId") userId: string) {
     return this.usersService.getUserItems(userId)
+  }
+
+  @Post("send-email/")
+  async sendUserEmail(@Body() input: SendEmailDTO) {
+    return this.usersService.sendUserEmail(input.userId)
   }
 }

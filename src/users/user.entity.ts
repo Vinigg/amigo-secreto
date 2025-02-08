@@ -1,3 +1,4 @@
+import { ApiProperty } from "@nestjs/swagger"
 import { Groups } from "src/groups/groups.entity"
 import { UsersItems } from "src/usersItems/userItems.entity"
 import {
@@ -5,7 +6,8 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
@@ -14,12 +16,15 @@ import {
 @Entity({ name: "users" })
 export class Users {
   @PrimaryGeneratedColumn("uuid")
+  @ApiProperty({ description: "The ID of the user", example: 1 })
   id: string
 
   @Column({ name: "name", nullable: false })
+  @ApiProperty({ description: "The name of the user", example: "Alice" })
   name: string
 
   @Column({ name: "email", nullable: false, unique: true })
+  @ApiProperty({ description: "The email of the user", example: "alice@example.com" })
   email: string
 
   @Column({ name: "password", nullable: false })
@@ -28,8 +33,9 @@ export class Users {
   @OneToMany(() => UsersItems, (usersItems) => usersItems.user)
   usersItems: UsersItems[]
 
-  @ManyToOne(() => Groups, (group) => group.users)
-  group: Groups
+  @ManyToMany(() => Groups, (group) => group.users)
+  @JoinTable({ name: "user_groups", joinColumn: { name: "user_id" }, inverseJoinColumn: { name: "group_id" } })
+  group: Groups[]
 
   @CreateDateColumn({ name: "created_at" })
   createdAt: Date

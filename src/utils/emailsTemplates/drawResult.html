@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado Sorteio Amigo Secreto</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      background-color: #d32f2f;
+      color: #ffffff;
+      text-align: center;
+      padding: 20px;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .content {
+      padding: 20px;
+      color: #333333;
+    }
+    .content h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .content p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .footer {
+      background-color: #f4f4f4;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      color: #666666;
+    }
+    .button {
+      display: inline-block;
+      background-color: #d32f2f;
+      color: #ffffff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      margin-top: 20px;
+      width: 170px;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>🎅 Resultado do sorteio de Amigo Secreto 🎅</h1>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <h2>Olá {{ giverName }},</h2>
+      <p>
+        O sorteio do Amigo Secreto foi concluído e temos o prazer de revelar a quem você vai oferecer um presente!
+      </p>
+      <p>
+        <strong>Seu Amigo Secreto é...</strong>
+      </p>
+      <p style="font-size: 18px; font-weight: bold; color: #d32f2f; display: flex; justify-content: center;">
+        🎁 {{ receiverName }} 🎁
+      </p>
+      <p>
+        Lembre-se, o espírito do amigo secreto é espalhar alegria e surpresa. Certifique-se de que mantém o segredo até o grande dia!
+      </p>
+      <p>
+        Se tiver alguma dúvida, não hesite em contactar o organizador.
+      </p>
+      <a href="#" class="button" style=" display:flex; justify-content:center; margin:auto;">Ver Detalhes do Grupo</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Um Feliz Natal!</p>
+      <p>🎄✨🎄✨🎄✨🎄</p>
+    </div>
+  </div>
+</body>
+</html>
