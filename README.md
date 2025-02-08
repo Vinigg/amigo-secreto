@@ -97,5 +97,7 @@ $ npm run test:cov
 # revert migration
 > npm run typeorm migration:revert --dataSource ./src/data-source.ts
 
+# run migration
+> npm run typeorm migration:run --dataSource ./src/data-source.ts
 
 ```
